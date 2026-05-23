@@ -216,6 +216,36 @@
             text-decoration: none;
         }
 
+        /* Additional floating icon that sits above the WhatsApp icon */
+        .extra-float {
+            position: fixed;
+            bottom: 100px; /* placed above the whatsapp button */
+            right: 30px;
+            background-color: #6c5ce7; /* purple to match theme */
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 22px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.25);
+            z-index: 1000;
+            transition: 0.25s;
+            text-decoration: none;
+            animation: pulse-contract 1.5s infinite;
+        }
+        
+        @keyframes pulse-contract {
+            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(108,92,231,0.7); }
+            50% { transform: scale(0.85); box-shadow: 0 0 0 15px rgba(108,92,231,0); }
+            100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(108,92,231,0); }
+        }
+
+        .extra-float:hover { animation-play-state: paused; transform: scale(1.1); }
+        .whatsapp-float:hover { transform: translateY(-6px); }
+
         @keyframes fadeInUp {
             from { opacity: 0; transform: translateY(30px); }
             to { opacity: 1; transform: translateY(0); }
@@ -641,16 +671,16 @@
 
         <nav>
             <ul id="nav-list">
-                <li><a href="#">Home</a></li>
-                <li><a href="#">Services</a></li>
-                <li><a href="#">About</a></li>
-                <li><a href="#">Contact</a></li>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#services">Services</a></li>
+                <li><a href="#founder-intro">About</a></li>
+                <li><a href="#contact">Contact</a></li>
               <li><a href="https://wa.me/919822568660?text=Hi%20Amit%20sir,%20I%20want%20to%20book%20a%20consultation." class="btn btn-primary" style="padding: 10px 25px;" target="_blank">Book Now</a></li>
             </ul>
         </nav>
     </header>
 
-    <section class="hero">
+    <section id="home" class="hero">
         <div class="hero-text">
             <h1>Modern Healing  <br>For <br><span>Ancient Souls</span></h1>
             <p>Experience personalized Vedic insights to bring balance, success, and peace back into your life.</p>
@@ -662,14 +692,74 @@
 
         <div class="hero-img">
             <div class="img-container">
-                <img src="nnumerology logo.jpeg" alt="Astrology Expert">
+                <img src="Assetes/nnumerology logo.jpeg" alt="Astrology Expert">
             </div>
         </div>
     </section>
 
-    <a href="https://wa.me/9198225 68660X" class="whatsapp-float" target="_blank">
+    <a href="#" class="extra-float" id="extraFloat" title="Watch">
+        <i class="fas fa-video"></i>
+    </a>
+
+    <a href="https://wa.me/919822568660?text=Hi%20from%20website" class="whatsapp-float" target="_blank">
         <i class="fab fa-whatsapp"></i>
     </a>
+
+    <!-- Centered responsive modal for the extra icon -->
+    <div id="centerModal" class="center-modal" aria-hidden="true">
+        <div class="center-modal-backdrop" id="centerBackdrop"></div>
+        <div class="center-modal-content" role="dialog" aria-modal="true" aria-labelledby="centerTitle">
+            <button class="center-close" id="centerClose" aria-label="Close">&times;</button>
+            <div class="center-video-shell">
+                <video id="centerVideo" controls playsinline poster="Assetes/Logo .jpeg">
+                    <source src="Assetes/Pop%20pup%20video%20.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+            </div>
+        </div>
+    </div>
+
+    <style>
+        /* Centered modal styles (responsive) */
+        .center-modal { position: fixed; inset: 0; display: none; align-items: center; justify-content: center; z-index: 12000; }
+        .center-modal.active { display: flex; }
+        .center-modal-backdrop { position: absolute; inset: 0; background: rgba(0,0,0,0.6); backdrop-filter: blur(4px); }
+        .center-modal-content { position: relative; width: 90%; max-width: 430px; background: linear-gradient(180deg, #ffffff 0%, #fbfbff 100%); border-radius: 22px; padding: 48px 12px 12px; z-index: 1; display: flex; flex-direction: column; align-items: stretch; box-shadow: 0 30px 60px rgba(0,0,0,0.45); border: 1px solid rgba(108,92,231,0.08); transform: translateY(8px) scale(.98); opacity: 0; transition: transform 260ms cubic-bezier(.2,.9,.3,1), opacity 260ms ease; max-height: 85vh; overflow: hidden; }
+        .center-modal.active .center-modal-content { transform: translateY(0) scale(1); opacity: 1; }
+        .center-video-shell { background: linear-gradient(180deg, #f8f8ff 0%, #ffffff 100%); border: 1px solid rgba(108,92,231,0.12); border-radius: 16px; padding: 4px; box-shadow: inset 0 1px 0 rgba(255,255,255,0.85); display: flex; align-items: center; justify-content: center; min-height: 0; }
+        .center-video-shell video { width: 100%; height: auto; display: block; border-radius: 12px; box-shadow: 0 14px 30px rgba(0,0,0,0.18); max-height: calc(85vh - 65px); }
+        .center-close { position: absolute; top: 12px; right: 12px; background: #fff; color:#000; width:40px; height:40px; border-radius:50%; border:none; font-size:22px; cursor:pointer; z-index:2; box-shadow: 0 8px 20px rgba(0,0,0,0.12); }
+        @media (max-width:480px) { .center-modal-content { max-width: 94%; padding: 46px 10px 10px; max-height: 85vh; width: 94%; } .center-close { width:36px; height:36px; font-size:18px; top:10px; right:10px; } .center-video-shell video { max-height: calc(85vh - 60px); } }
+    </style>
+
+    <script>
+        (function(){
+            const extra = document.getElementById('extraFloat');
+            const modal = document.getElementById('centerModal');
+            const backdrop = document.getElementById('centerBackdrop');
+            const closeBtn = document.getElementById('centerClose');
+            const video = document.getElementById('centerVideo');
+
+            function openModal(e){
+                e.preventDefault();
+                modal.classList.add('active');
+                // attempt to play; catch to avoid console errors if blocked
+                video.play().catch(()=>{});
+            }
+
+            function closeModal(){
+                modal.classList.remove('active');
+                try{ video.pause(); video.currentTime = 0; }catch(e){}
+            }
+
+            extra.addEventListener('click', openModal);
+            closeBtn.addEventListener('click', function(e){ e.stopPropagation(); closeModal(); });
+            backdrop.addEventListener('click', closeModal);
+
+            // Close on ESC
+            document.addEventListener('keydown', function(e){ if(e.key === 'Escape' && modal.classList.contains('active')) closeModal(); });
+        })();
+    </script>
 <style>
     /* 1. Theme Continuation - Making sure background is seamless */
     body {
@@ -1034,7 +1124,7 @@
     <div class="founder-container">
         
         <div class="founder-image-area">
-            <img src="Screenshot 2026-04-23 214517.png" alt="Amit R Chokhani" class="main-img">
+            <img src="Assetes/Screenshot 2026-04-23 214517.png" alt="Amit R Chokhani" class="main-img">
             <div class="experience-badge">
                 <span class="years">10+</span>
                 <span class="exp-text">Years of Wisdom</span>
@@ -1149,12 +1239,13 @@
         position: relative;
         overflow: hidden;
         display: flex;
+        background: rgba(0, 0, 0, 0.5); /* Match dark theme */
     }
 
     .image-container img {
         width: 100%;
         height: 100%;
-        object-fit: cover;
+        object-fit: contain; /* Keep the whole poster visible without cropping */
         /* Floating animation for the image */
         /* animation: imgFloat 6s ease-in-out infinite; */
     }
@@ -1314,197 +1405,73 @@
 
     /* Responsive */
     @media (max-width: 992px) {
-        .webinar-card { grid-template-columns: 1fr; }
-        .image-container { height: 350px; }
-        .details-container { padding: 40px 30px; text-align: center; }
+        .webinar-spotlight { padding: 0 !important; }
+        .webinar-card { 
+            grid-template-columns: 1fr; 
+            max-width: 100% !important; 
+            border-radius: 0 !important;
+            border: none !important;
+        }
+        .image-container { 
+            width: 100% !important;
+            height: auto !important; 
+            display: block !important;
+            background: #000;
+        }
+        .image-container img { 
+            width: 100% !important;
+            height: auto !important;
+            object-fit: contain !important; 
+            display: block !important;
+        }
+        .details-container { padding: 40px 20px; text-align: center; }
         .schedule { justify-content: center; }
         .btn-group { justify-content: center; }
-    }/* --- Sirf Image Container ka Fixed Code --- */
-
-.image-container {
-    position: relative;
-    overflow: hidden;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: #000; /* Sidebar background agar image choti ho to */
-}
-
-.image-container img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover; /* Desktop par full dikhega */
-    display: block;
-}
-
-/* Mobile View Fix (Yaha changes kiye hain) */
-@media (max-width: 992px) {
-    .image-container {
-        height: auto; /* Height auto takki image ke hisab se adjust ho */
-        min-height: 250px;
-        background: #0b0b1a; /* Card ke background se match */
     }
-
-    .image-container img {
-        object-fit: contain; /* Isse image side se kabhi nahi kategi */
-        width: 100%;
-        height: auto;
-        max-height: 450px; /* Taki mobile screen se badi na ho jaye */
-    }
-}/* --- MOBILE VIEW (ABSOLUTE FULL COVER - NO CROP, NO STRETCH) --- */
-@media (max-width: 992px) {
-    /* Bahar ki saari khali jagah khatam */
-    .webinar-spotlight {
-        padding: 0px !important;
-    }
-
-    .webinar-card {
-        width: 100% !important;
-        max-width: 100% !important;
-        margin: 0px !important;
-        border: none !important;
-        border-radius: 0px !important; /* Side se chipkaane ke liye */
-        display: block !important; /* Stack image on top */
-    }
-
-    .image-container {
-        width: 100% !important;
-        height: auto !important;
-        padding: 0px !important;
-        margin: 0px !important;
-        line-height: 0; /* Extra bottom space hatane ke liye */
-    }
-
-    .image-container img {
-        width: 100% !important;
-        height: auto !important; /* Original lambai maintain hogi */
-        object-fit: initial !important; /* No stretch, No crop */
-        display: block !important;
-        border-radius: 0px !important; /* Full width look */
-    }
-
-    .details-container {
-        padding: 30px 20px !important;
-        text-align: center !important;
-    }
-}/* --- MOBILE VIEW (Full Width + Original Length + No Stretch) --- */
-@media (max-width: 992px) {
-    .webinar-spotlight {
-        padding: 0px !important; /* Screen ke corners touch karne ke liye */
-    }
-
-    .webinar-card {
-        width: 100% !important;
-        max-width: 100% !important;
-        margin: 0px !important;
-        border: none !important;
-        border-radius: 0px !important;
-        display: flex !important;
-        flex-direction: column !important;
-    }
-
-    .image-container {
-        width: 100% !important;
-        height: auto !important; /* Height fix nahi hai, image ke sath badhegi */
-        display: block !important;
-        overflow: visible !important;
-    }
-
-    .image-container img {
-        width: 100% !important;
-        height: auto !important; /* Isse image lambi dikhegi bina stretch huye */
-        object-fit: contain !important; /* Jaisi photo hai bilkul waisi original */
-        display: block !important;
-        border-radius: 0px !important;
-    }
-
-    .details-container {
-        padding: 40px 20px !important;
-        text-align: center !important;
-    }
-}/* --- MOBILE VIEW (Big Box + Full Image Cover) --- */
-@media (max-width: 992px) {
-    .webinar-spotlight {
-        padding: 0px !important; /* Screen ke kinaro tak chipakne ke liye */
-    }
-
-    .webinar-card {
-        width: 100% !important;
-        max-width: 100% !important;
-        margin: 0px !important;
-        border-radius: 0px !important;
-        display: flex !important;
-        flex-direction: column !important; /* Image upar, content niche */
-    }
-
-    /* IMAGE KA BOX BADA KIYA HAI YAHAN */
-    .image-container {
-        width: 100% !important;
-        /* Image ki lambai ke hisab se box ko bada kiya */
-        height: auto !important; 
-        min-height: 450px; /* Kam se kam itna bada box rahega hi */
-        display: block !important;
-        line-height: 0;
-    }
-
-    .image-container img {
-        width: 100% !important;
-        height: auto !important; /* Original lambai bina stretch huye */
-        display: block !important;
-        object-fit: cover; /* Box bada hai toh image puri cover karegi */
-        object-position: top; /* Taki face upar se dikhe */
-        border-radius: 0px !important;
-    }
-
-    .details-container {
-        padding: 40px 20px !important;
-        background: #0b0b1a; /* Neeche ka content clear dikhne ke liye */
-    }
-}
 </style>
 
 <section class="webinar-spotlight">
     <div class="webinar-card">
         
         <div class="image-container">
-            <div class="seats-badge">Only 50 Seats Left</div>
-            <img src="WhatsApp Image 2026-05-03 at 12.35.57 PM.jpeg" alt="Handwriting Webinar">
+            <div class="seats-badge">Mother's Day Special</div>
+            <img src="Assetes/Mother day .jpeg" alt="Parenting Webinar">
         </div>
 
         <div class="details-container">
             <span class="live-tag"><i class="fas fa-circle" style="font-size: 8px; vertical-align: middle;"></i> LIVE WEBINAR</span>
-            <h2 class="webinar-title">Better Parenting through Handwriting</h2>
+            <h2 class="webinar-title">Mother’s Day Special Free Parenting Webinar</h2>
             
-            <p class="parent-greeting">Dear Parents 🌸</p>
+            <p class="parent-greeting">Dear Mothers 💖</p>
 
             <div class="main-content">
-                <b>Handwriting is BRAIN writing</b>
-                Aapka child jo likhta hai, wahi uski thinking aur future ko shape karta hai.<br><br>
-                Good news 👉 Writing change karke hum thinking bhi improve kar sakte hain.
+                <b>What You Give Your Child Today, Shapes Their Tomorrow</b><br><br>
+                Aapka child jo feel karta hai, wahi uski personality aur future ko shape karta hai.<br><br>
+                Good news 👉 Simple parenting changes se hum child ki confidence, emotions aur bonding improve kar sakte hain.
             </div>
 
             <div class="info-grid">
                 <div class="schedule">
-                    <span><i class="fas fa-calendar-day"></i> 3 May 2026</span>
-                    <span><i class="fas fa-clock"></i> 7:30 PM</span>
+                    <span><i class="fas fa-calendar-day"></i> 13 May 2026</span>
+                    <span><i class="fas fa-map-marker-alt"></i> WEDNESDAY</span>
+                    <span><i class="fas fa-clock"></i> 6:30 PM</span>
                     <span><i class="fas fa-video"></i> Zoom</span>
                 </div>
                 <div class="zoom-credentials">
-                    <b>Meeting ID:</b> 81950167836 &nbsp; | &nbsp; <b>Password:</b> learn123
+                    <b>Meeting ID:</b> 8950627868 &nbsp; | &nbsp; <b>Password:</b> momlove
                 </div>
             </div>
 
-            <p style="margin-bottom: 25px; font-weight: 600;">👉 Join karein aur child ki life ki direction badlein</p>
+            <p style="margin-bottom: 25px; font-weight: 600;">👉 Join karein aur apne child ke future ko strong aur happy banayein.</p>
 
             <div class="price-tag">
-                <span class="old-price">₹3600</span>
                 <span class="new-price">FREE</span>
             </div>
 
             <div class="btn-group">
-                <a href="https://us06web.zoom.us/j/81950167836?pwd=uHsIp6rhWiDYem4uWXgssiq6oGzagq.1" class="btn-reserve">Reserve Your Seat</a>
-                <a href="https://wa.me/yournumber" class="btn-whatsapp">
-                    <i class="fab fa-whatsapp"></i> Join on WhatsApp
+                <a href="https://zoom.us/j/8950627868" class="btn-reserve" style="background: #007bff; border-color: #007bff; color: white;">🔵 RESERVE YOUR SEAT</a>
+                <a href="https://wa.me/919822568660?text=Hi,%20I'm%20interested%20in%20joining%20the%20Mother's%20Day%20Parenting%20Webinar" class="btn-whatsapp" style="background: #25d366; color: white;">
+                    <i class="fab fa-whatsapp"></i> 🟢 Join on WhatsApp
                 </a>
             </div>
 
@@ -1513,6 +1480,551 @@
     </div>
 </section>
 
+<!-- ==============================================
+     UPCOMING COURSES CAROUSEL SECTION 
+=============================================== -->
+<style>
+/* --- UPCOMING COURSES CAROUSEL --- */
+.upcoming-courses-section {
+    padding: 120px 10%;
+    position: relative;
+    z-index: 1;
+    overflow: hidden;
+    background: transparent;
+}
+
+.courses-carousel-container {
+    position: relative;
+    max-width: 1100px;
+    margin: 0 auto;
+    overflow: hidden; 
+    touch-action: pan-y; 
+}
+
+.courses-carousel-track {
+    display: flex;
+    width: 100%;
+    transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.course-card-wrapper {
+    flex: 0 0 100%;
+    min-width: 100%;
+    padding: 20px; 
+    box-sizing: border-box;
+}
+
+.course-card {
+    display: flex;
+    background: rgba(255, 255, 255, 0.05); 
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 30px;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.3);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    overflow: hidden;
+    height: 100%;
+}
+
+.course-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 45px rgba(108, 92, 231, 0.2);
+    border: 1px solid rgba(108, 92, 231, 0.5);
+}
+
+.course-image-side {
+    width: 42%;
+    position: relative;
+    background: #000;
+}
+
+.course-image-side img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    opacity: 0.9;
+}
+
+.course-badge {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    background: linear-gradient(135deg, var(--soft-purple), var(--deep-blue));
+    color: white;
+    padding: 8px 16px;
+    border-radius: 6px;
+    font-weight: 700;
+    font-size: 14px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    z-index: 2;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.course-badge.gold {
+    background: linear-gradient(135deg, #f1c40f, #f39c12);
+    color: #000;
+}
+
+.course-content-side {
+    width: 58%;
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.course-title {
+    font-size: 32px;
+    background: linear-gradient(135deg, var(--deep-blue), var(--soft-purple));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-top: 0;
+    margin-bottom: 15px;
+    line-height: 1.2;
+}
+
+.course-desc {
+    color: #4b5563;
+    font-size: 16px;
+    line-height: 1.6;
+    margin-bottom: 25px;
+}
+
+.course-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+    margin-bottom: 25px;
+}
+
+.c-item {
+    font-size: 14px;
+    color: #111;
+    padding: 12px;
+    background: rgba(0,0,0,0.05);
+    border-radius: 12px;
+    border: 1px solid rgba(0,0,0,0.1);
+}
+
+.c-item span {
+    color: var(--soft-purple);
+    font-weight: 600;
+    margin-right: 5px;
+}
+
+.course-mentor {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 25px;
+    padding: 15px;
+    background: rgba(108, 92, 231, 0.1);
+    border-radius: 15px;
+    border-left: 4px solid var(--soft-purple);
+}
+
+.course-mentor i {
+    font-size: 30px;
+    color: var(--soft-purple);
+}
+
+.course-mentor strong {
+    color: #111;
+    font-size: 16px;
+    display: block;
+}
+
+.course-mentor small {
+    color: #4b5563;
+}
+
+.course-benefits {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 30px;
+}
+
+.course-benefits span {
+    background: rgba(0,0,0,0.05);
+    color: #111;
+    padding: 8px 15px;
+    border-radius: 20px;
+    font-size: 13px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.course-benefits span i {
+    color: #00b894;
+}
+
+.course-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: auto; 
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.course-price {
+    font-size: 32px;
+    font-weight: 800;
+    color: #111;
+}
+
+.course-buttons {
+    display: flex;
+    gap: 15px;
+}
+
+.btn-secondary {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    color: #111;
+    border: 2px solid rgba(0,0,0,0.3);
+    padding: 14px 25px;
+    text-decoration: none;
+    border-radius: 50px;
+    font-weight: 700;
+    text-transform: uppercase;
+    transition: 0.3s;
+}
+
+.btn-secondary:hover {
+    background: rgba(0,0,0,0.05);
+    border-color: #111;
+}
+
+/* Indicators */
+.carousel-indicators {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    margin-top: 10px;
+}
+
+.carousel-indicators .dot {
+    width: 12px;
+    height: 12px;
+    background: rgba(0,0,0,0.2);
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.4s ease;
+}
+
+.carousel-indicators .dot.active {
+    width: 35px;
+    border-radius: 10px;
+    background: var(--soft-purple);
+}
+
+/* Responsive */
+@media (max-width: 992px) {
+    .upcoming-courses-section {
+        padding: 80px 5%;
+    }
+    .course-title {
+        font-size: 26px;
+    }
+    .course-content-side {
+        padding: 30px;
+    }
+    .course-price {
+        font-size: 28px;
+    }
+    .course-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 768px) {
+    .upcoming-courses-section {
+        padding: 50px 15px;
+    }
+    .course-card-wrapper {
+        padding: 10px 0;
+    }
+    .course-card {
+        flex-direction: column;
+        border-radius: 20px;
+    }
+    .course-image-side {
+        width: 100%;
+        height: 300px;
+    }
+    .course-image-side img {
+        object-position: center top;
+    }
+    .course-badge {
+        top: 15px;
+        left: 15px;
+        font-size: 12px;
+        padding: 6px 12px;
+    }
+    .course-content-side {
+        width: 100%;
+        padding: 10px 20px 25px 20px;
+        justify-content: flex-start;
+    }
+    .course-title {
+        font-size: 23px;
+        margin-bottom: 12px;
+    }
+    .course-desc {
+        font-size: 14px;
+        margin-bottom: 20px;
+    }
+    .course-grid {
+        gap: 10px;
+        margin-bottom: 20px;
+    }
+    .c-item {
+        font-size: 13px;
+        padding: 10px;
+    }
+    .course-mentor {
+        padding: 12px;
+        margin-bottom: 20px;
+    }
+    .course-mentor i {
+        font-size: 24px;
+    }
+    .course-mentor strong {
+        font-size: 14px;
+    }
+    .course-benefits {
+        gap: 8px;
+        margin-bottom: 25px;
+    }
+    .course-benefits span {
+        font-size: 12px;
+        padding: 6px 12px;
+    }
+    .course-footer {
+        flex-direction: column;
+        align-items: center;
+        gap: 15px;
+    }
+    .course-price {
+        font-size: 28px;
+    }
+    .course-buttons {
+        width: 100%;
+        flex-direction: column;
+        gap: 10px;
+    }
+    .btn-reserve, .btn-secondary {
+        width: 100%;
+        text-align: center;
+        box-sizing: border-box;
+        padding: 15px;
+    }
+}
+</style>
+
+<section class="upcoming-courses-section">
+    <div class="section-header">
+        <h2>Upcoming Courses</h2>
+        <p>Discover our latest transformational programs designed to create meaningful growth and lasting impact.</p>
+    </div>
+
+    <!-- Carousel Container -->
+    <div class="courses-carousel-container" id="coursesContainer" role="region" aria-label="Upcoming Courses Carousel">
+        <div class="courses-carousel-track" id="coursesTrack">
+            
+            <!-- CARD 1 -->
+            <div class="course-card-wrapper" role="group" aria-roledescription="slide" aria-label="1 of 2">
+                <div class="course-card">
+                    <div class="course-image-side">
+                        <img src="Assetes/Course 1 .jpeg" alt="Handwriting Improvement">
+                    </div>
+                    <div class="course-content-side">
+                        <h3 class="course-title">Handwriting Improvement Program</h3>
+                        <p class="course-desc">Help your child improve handwriting, confidence, focus and personality through a structured learning experience.</p>
+                        
+                        <div class="course-grid">
+                            <div class="c-item"><span>Eligibility:</span> Age 5–15 Years</div>
+                            <div class="c-item"><span>Duration:</span> 21 Days</div>
+                            <div class="c-item"><span>Sessions:</span> 11 Live + 10 Practice</div>
+                            <div class="c-item"><span>Time Slots:</span> 12 PM / 3 PM</div>
+                        </div>
+
+                        <div class="course-mentor">
+                            <i class="fas fa-chalkboard-teacher"></i>
+                            <div>
+                                <strong>Neha Agrawal Ma'am</strong>
+                                <small>Graphologist • 15+ Years Experience</small>
+                            </div>
+                        </div>
+
+                        <div class="course-benefits">
+                            <span><i class="fas fa-check"></i> Handwriting Improvement</span>
+                            <span><i class="fas fa-check"></i> Focus & Confidence</span>
+                            <span><i class="fas fa-check"></i> Personality Development</span>
+                            <span><i class="fas fa-check"></i> Positive Learning Habits</span>
+                        </div>
+
+                        <div class="course-footer">
+                            <div class="course-price">₹3000 Only</div>
+                            <div class="course-buttons">
+                                <a href="https://wa.me/919822568660?text=Hi,%20I'm%20interested%20in%20joining%20the%20Handwriting%20Improvement%20Program" class="btn-reserve" target="_blank">Join Now</a>
+                                <a href="https://wa.me/919822568660?text=Hi,%20I%20would%20like%20to%20learn%20more%20about%20the%20Handwriting%20Improvement%20Program" class="btn-secondary" target="_blank">Learn More</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CARD 2 -->
+            <div class="course-card-wrapper" role="group" aria-roledescription="slide" aria-label="2 of 2">
+                <div class="course-card">
+                    <div class="course-image-side">
+                        <img src="Assetes/Course 2 .jpeg" alt="Money Energy Workshop">
+                    </div>
+                    <div class="course-content-side" style="padding-top: 5px;">
+                        <h3 class="course-title">Unlock Your Money Energy & Abundance Journey</h3>
+                        <p class="course-desc">A guided transformational workshop focused on healing, manifestation and financial abundance.</p>
+                        
+                        <div class="course-benefits" style="margin-bottom: 25px;">
+                            <span><i class="fas fa-check"></i> Chakra Healing</span>
+                            <span><i class="fas fa-check"></i> Green Candle Manifestation</span>
+                            <span><i class="fas fa-check"></i> Pyrite Crystal Energy</span>
+                            <span><i class="fas fa-check"></i> Guided Meditation</span>
+                            <span><i class="fas fa-check"></i> 369 Writing Technique</span>
+                        </div>
+
+                        <div class="course-grid" style="grid-template-columns: 1fr;">
+                            <div class="c-item"><span>Date:</span> 30th May & 31st May</div>
+                            <div class="c-item"><span>Time:</span> 6:00 PM</div>
+                        </div>
+
+                        <div class="course-footer" style="margin-top: 20px;">
+                            <div class="course-price">₹999 Only</div>
+                            <div class="course-buttons">
+                                <a href="https://wa.me/919822568660?text=Hi,%20I%20would%20like%20to%20reserve%20a%20seat%20for%20the%20Money%20Energy%20Workshop" class="btn-reserve" target="_blank">Reserve Seat</a>
+                                <a href="https://wa.me/919822568660?text=Hi,%20I%20would%20like%20more%20details%20about%20the%20Money%20Energy%20Workshop" class="btn-secondary" target="_blank">View Details</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Carousel Indicators -->
+        <div class="carousel-indicators">
+            <button class="dot active" onclick="goToCourseSlide(0)" aria-label="Go to slide 1"></button>
+            <button class="dot" onclick="goToCourseSlide(1)" aria-label="Go to slide 2"></button>
+        </div>
+    </div>
+</section>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    const track = document.getElementById('coursesTrack');
+    const dots = document.querySelectorAll('.carousel-indicators .dot');
+    const container = document.getElementById('coursesContainer');
+    
+    if(!track || dots.length === 0) return;
+
+    let currentIndex = 0;
+    let slideInterval;
+    let startX = 0;
+    let isDragging = false;
+
+    function updateSlide(index) {
+        currentIndex = index;
+        if (currentIndex < 0) currentIndex = 0;
+        if (currentIndex > 1) currentIndex = 1;
+
+        const displacement = -(currentIndex * 100);
+        track.style.transition = 'transform 0.6s cubic-bezier(0.25, 1, 0.5, 1)';
+        track.style.transform = `translateX(${displacement}%)`;
+        
+        dots.forEach((dot, i) => {
+            if(i === currentIndex) {
+                dot.classList.add('active');
+            } else {
+                dot.classList.remove('active');
+            }
+        });
+    }
+
+    window.goToCourseSlide = function(index) {
+        updateSlide(index);
+        resetAutoSlide();
+    }
+
+    function nextSlide() {
+        let nextIndex = currentIndex === 1 ? 0 : 1;
+        updateSlide(nextIndex);
+    }
+
+    function startAutoSlide() {
+        slideInterval = setInterval(nextSlide, 5000);
+    }
+
+    function resetAutoSlide() {
+        clearInterval(slideInterval);
+        startAutoSlide();
+    }
+
+    // Pause on hover
+    if(container) {
+        container.addEventListener('mouseenter', () => clearInterval(slideInterval));
+        container.addEventListener('mouseleave', startAutoSlide);
+
+        // Touch swipe support
+        container.addEventListener('touchstart', (e) => {
+            startX = e.touches[0].clientX;
+            isDragging = true;
+            clearInterval(slideInterval);
+            track.style.transition = 'none';
+        }, {passive: true});
+
+        container.addEventListener('touchmove', (e) => {
+            if (!isDragging) return;
+            // minimal dragging visual effect can be ignored for simple swipe
+        }, {passive: true});
+
+        container.addEventListener('touchend', (e) => {
+            isDragging = false;
+            const endX = e.changedTouches[0].clientX;
+            const diff = endX - startX;
+            
+            if (diff < -50) {
+                // swiped left
+                goToCourseSlide(currentIndex === 0 ? 1 : 1);
+            } else if (diff > 50) {
+                // swiped right
+                goToCourseSlide(currentIndex === 1 ? 0 : 0);
+            } else {
+                updateSlide(currentIndex);
+            }
+            startAutoSlide();
+        });
+        
+        // Keyboard Accessibility
+        container.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowLeft') {
+                goToCourseSlide(0);
+            } else if (e.key === 'ArrowRight') {
+                goToCourseSlide(1);
+            }
+        });
+    }
+
+    startAutoSlide();
+});
+</script>
 
 <style>
     /* --- Team Section Styling --- */
@@ -1683,7 +2195,7 @@
 
     <div class="founder-highlight" style="max-width: 850px; margin: 0 auto 50px auto; padding: 0 20px;">
         <div class="founder-card" style="text-align: center; background: transparent; border: 1px solid rgba(0,0,0,0.1); border-radius: 20px; padding: 30px;">
-            <img src="Screenshot 2026-04-23 214517.png" alt="Amit R Chokhani" style="width: 160px; height: 160px; border-radius: 50%; object-fit: cover; margin-bottom: 20px; box-shadow: 0 5px 15px rgba(0,0,0,0.1);">
+            <img src="Assetes/Screenshot 2026-04-23 214517.png" alt="Amit R Chokhani" style="width: 160px; height: 160px; border-radius: 50%; object-fit: cover; margin-bottom: 20px; box-shadow: 0 5px 15px rgba(0,0,0,0.1);">
             <div class="member-info">
                 <span class="role" style="display: block; color: #6e57e0; font-weight: 600; font-size: 0.85rem; text-transform: uppercase; margin-bottom: 12px; letter-spacing: 1px;">Astro-Numerologist / Graphologist / Signature Expert</span>
                 <h3 style="margin: 0 0 15px 0; font-size: 1.6rem; letter-spacing: 1px;">AMIT R CHOKHANI</h3>
@@ -1695,7 +2207,7 @@
     <div class="team-grid" style="display: flex; flex-wrap: wrap; justify-content: center; gap: 30px; max-width: 1200px; margin: 0 auto; padding: 0 20px;">
         
         <div class="member-card" style="flex: 1 1 300px; max-width: 360px; text-align: center; background: transparent; border: 1px solid rgba(0,0,0,0.08); padding: 25px; border-radius: 15px;">
-            <img src="Screenshot 2026-04-23 214151.png" alt="Ankitha Shashi" style="width: 130px; height: 130px; border-radius: 50%; object-fit: cover; margin-bottom: 15px;">
+            <img src="Assetes/Screenshot 2026-04-23 214151.png" alt="Ankitha Shashi" style="width: 130px; height: 130px; border-radius: 50%; object-fit: cover; margin-bottom: 15px;">
             <div class="member-info">
                 <span class="role" style="display: block; color: #6e57e0; font-weight: 600; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px;">Reiki Grandmaster / Tarot / Numerologist</span>
                 <h3 style="margin: 12px 0; font-size: 1.3rem;">ANKITHA SHASHI</h3>
@@ -1704,7 +2216,7 @@
         </div>
 
         <div class="member-card" style="flex: 1 1 300px; max-width: 360px; text-align: center; background: transparent; border: 1px solid rgba(0,0,0,0.08); padding: 25px; border-radius: 15px;">
-            <img src="Screenshot 2026-04-23 214427.png" alt="Prieti A Sabharwal" style="width: 130px; height: 130px; border-radius: 50%; object-fit: cover; margin-bottom: 15px;">
+            <img src="Assetes/Screenshot 2026-04-23 214427.png" alt="Prieti A Sabharwal" style="width: 130px; height: 130px; border-radius: 50%; object-fit: cover; margin-bottom: 15px;">
             <div class="member-info">
                 <span class="role" style="display: block; color: #6e57e0; font-weight: 600; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px;">Numerologist / Graphologist / Tarot</span>
                 <h3 style="margin: 12px 0; font-size: 1.3rem;">PRIETI A SABHARWAL</h3>
@@ -1713,7 +2225,7 @@
         </div>
 
         <div class="member-card" style="flex: 1 1 300px; max-width: 360px; text-align: center; background: transparent; border: 1px solid rgba(0,0,0,0.08); padding: 25px; border-radius: 15px;">
-            <img src="Screenshot 2026-04-23 214840.png" alt="Charuhansi Yadav" style="width: 130px; height: 130px; border-radius: 50%; object-fit: cover; margin-bottom: 15px;">
+            <img src="Assetes/Screenshot 2026-04-23 214840.png" alt="Charuhansi Yadav" style="width: 130px; height: 130px; border-radius: 50%; object-fit: cover; margin-bottom: 15px;">
             <div class="member-info">
                 <span class="role" style="display: block; color: #6e57e0; font-weight: 600; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px;">Numerologist, Vastu Consultant,
 Personal & Business Name
@@ -1876,7 +2388,7 @@ Designer & analyst</span>
     }
 </style>
 
-<section class="spiritual-master-section">
+<section id="services" class="spiritual-master-section">
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&display=swap" rel="stylesheet">
 
     <style>
@@ -2306,7 +2818,7 @@ Designer & analyst</span>
         
         <div class="venture-logo-box">
             <div class="logo-canvas">
-                <img src="Screenshot 2026-04-23 162234.png" alt="Ghyan Srotah Logo">
+                <img src="Assetes/Screenshot 2026-04-23 162234.png" alt="Ghyan Srotah Logo">
             </div>
         </div>
 
@@ -2540,10 +3052,10 @@ Designer & analyst</span>
 
     <div class="scroll-wrapper" id="reviewSlider">
         <div class="scroller-logic" id="scrollContent">
-            <div class="chat-ss-card" onclick="zoomMe(this)"><img src="WhatsApp Image 2026-04-23 at 4.32.56 PM (1).jpeg"></div>
-            <div class="chat-ss-card" onclick="zoomMe(this)"><img src="WhatsApp Image 2026-04-23 at 4.32.56 PM (2).jpeg"></div>
-            <div class="chat-ss-card" onclick="zoomMe(this)"><img src="WhatsApp Image 2026-04-23 at 4.32.56 PM.jpeg"></div>
-            <div class="chat-ss-card" onclick="zoomMe(this)"><img src="WhatsApp Image 2026-04-23 at 4.32.57 PM.jpeg"></div>
+            <div class="chat-ss-card" onclick="zoomMe(this)"><img src="Assetes/WhatsApp Image 2026-04-23 at 4.32.56 PM (1).jpeg"></div>
+            <div class="chat-ss-card" onclick="zoomMe(this)"><img src="Assetes/WhatsApp Image 2026-04-23 at 4.32.56 PM (2).jpeg"></div>
+            <div class="chat-ss-card" onclick="zoomMe(this)"><img src="Assetes/WhatsApp Image 2026-04-23 at 4.32.56 PM.jpeg"></div>
+            <div class="chat-ss-card" onclick="zoomMe(this)"><img src="Assetes/WhatsApp Image 2026-04-23 at 4.32.57 PM.jpeg"></div>
         </div>
     </div>
 </section>
@@ -2841,19 +3353,19 @@ window.onload = function() {
     <div class="v-slider-box" id="vBox">
         <div class="v-track" id="vTrack">
             <div class="v-card" onclick="openVideo('nutest1.mp4')">
-                <img src="WhatsApp Image 2026-04-23 at 5.32.37 PM.jpeg" alt="Video">
+                <img src="Assetes/WhatsApp Image 2026-04-23 at 5.32.37 PM.jpeg" alt="Video">
                 <div class="v-play-overlay"><div class="v-play-btn"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div></div>
             </div>
             <div class="v-card" onclick="openVideo('nutest2.mp4')">
-                <img src="WhatsApp Image 2026-04-23 at 5.32.38 PM (1).jpeg" alt="Video">
+                <img src="Assetes/WhatsApp Image 2026-04-23 at 5.32.38 PM (1).jpeg" alt="Video">
                 <div class="v-play-overlay"><div class="v-play-btn"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div></div>
             </div>
             <div class="v-card" onclick="openVideo('nutest3.mp4')">
-                <img src="WhatsApp Image 2026-04-23 at 5.32.38 PM.jpeg" alt="Video">
+                <img src="Assetes/WhatsApp Image 2026-04-23 at 5.32.38 PM.jpeg" alt="Video">
                 <div class="v-play-overlay"><div class="v-play-btn"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div></div>
             </div>
             <div class="v-card" onclick="openVideo('nutest4.mp4')">
-                <img src="WhatsApp Image 2026-04-23 at 5.32.39 PM.jpeg" alt="Video">
+                <img src="Assetes/WhatsApp Image 2026-04-23 at 5.32.39 PM.jpeg" alt="Video">
                 <div class="v-play-overlay"><div class="v-play-btn"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div></div>
             </div>
         </div>
@@ -3006,8 +3518,8 @@ window.onload = function() {
             </div>
         </div>
         
-        <video id="mainHVideo" poster="moretest.jpeg" playsinline>
-            <source src="moretest.mp4" type="video/mp4">
+        <video id="mainHVideo" poster="Assetes/moretest.jpeg" playsinline>
+            <source src="Assetes/moretest.mp4" type="video/mp4">
             Your browser does not support the video tag.
         </video>
     </div>
@@ -3170,11 +3682,11 @@ window.onload = function() {
 }
 </style>
 
-<footer class="mega-footer">
+<footer id="contact" class="mega-footer">
     <div class="f-container">
         <div class="f-about">
           <a href="#" class="f-logo">
-                <img src="nnumerology logo.jpeg" alt="Company Logo">
+                <img src="Assetes/nnumerology logo.jpeg" alt="Company Logo">
             </a>
             <p>We are dedicated to providing the best results for our clients. Join thousands of happy users today and scale your business.</p>
             <div class="f-social-icons">
