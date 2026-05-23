@@ -1229,6 +1229,11 @@
         transition: transform 0.4s ease;
     }
 
+    .image-column {
+        display: flex;
+        flex-direction: column;
+    }
+
     .webinar-card:hover {
         transform: translateY(-10px);
         box-shadow: 0 35px 60px rgba(0,0,0,0.6), 0 0 30px rgba(255, 215, 0, 0.2);
@@ -1245,7 +1250,9 @@
     .image-container img {
         width: 100%;
         height: 100%;
-        object-fit: contain; /* Keep the whole poster visible without cropping */
+        object-fit: contain; /* Fit the whole image inside the container */
+        object-position: center top;
+        min-height: 420px;
         /* Floating animation for the image */
         /* animation: imgFloat 6s ease-in-out infinite; */
     }
@@ -1262,6 +1269,29 @@
         font-size: 14px;
         z-index: 10;
         box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    }
+
+    .demo-badge {
+        align-self: flex-start;
+        margin: 12px 0 0 25px;
+        background: linear-gradient(135deg, #ff4d4d, #cc0000);
+        color: #fff;
+        padding: 10px 16px;
+        border-radius: 50px;
+        font-weight: 700;
+        font-size: 13px;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        text-decoration: none;
+        z-index: 10;
+        box-shadow: 0 8px 18px rgba(204, 0, 0, 0.3);
+        transition: 0.3s;
+    }
+
+    .demo-badge:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 12px 24px rgba(204, 0, 0, 0.38);
     }
 
     /* Right Side - All Details Together */
@@ -1392,6 +1422,25 @@
         transition: 0.3s;
     }
 
+    .btn-demo {
+        background: linear-gradient(135deg, #ff4d4d, #cc0000);
+        color: white;
+        padding: 18px 30px;
+        text-decoration: none;
+        border-radius: 50px;
+        font-weight: 700;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        transition: 0.3s;
+        box-shadow: 0 10px 20px rgba(204, 0, 0, 0.22);
+    }
+
+    .btn-demo:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 14px 26px rgba(204, 0, 0, 0.3);
+    }
+
     .footer-brand {
         margin-top: 25px;
         font-weight: 700;
@@ -1422,6 +1471,8 @@
             width: 100% !important;
             height: auto !important;
             object-fit: contain !important; 
+            object-position: center top !important;
+            min-height: 320px !important;
             display: block !important;
         }
         .details-container { padding: 40px 20px; text-align: center; }
@@ -1432,50 +1483,56 @@
 
 <section class="webinar-spotlight">
     <div class="webinar-card">
-        
-        <div class="image-container">
-            <div class="seats-badge">Mother's Day Special</div>
-            <img src="Mother day .jpeg" alt="Parenting Webinar">
+
+        <div class="image-column">
+            <div class="image-container" style="background-image: url('Webinar .jpeg'); background-size: contain; background-position: center top; background-repeat: no-repeat; min-height: 420px;">
+                <div class="seats-badge">Admissions Open</div>
+                <img src="Webinar .jpeg" alt="Handwriting Improvement" aria-hidden="true" style="display:none;" />
+            </div>
+            <a href="https://youtu.be/JBVF5JMwpXs?si=4Jy8Z6Y2rMWMPeWU" class="demo-badge" target="_blank"><i class="fab fa-youtube"></i> View Demo</a>
         </div>
 
         <div class="details-container">
-            <span class="live-tag"><i class="fas fa-circle" style="font-size: 8px; vertical-align: middle;"></i> LIVE WEBINAR</span>
-            <h2 class="webinar-title">Mother’s Day Special Free Parenting Webinar</h2>
-            
-            <p class="parent-greeting">Dear Mothers 💖</p>
+            <span class="live-tag"><i class="fas fa-circle" style="font-size: 8px; vertical-align: middle;"></i> UPCOMING WEBINAR</span>
+            <h2 class="webinar-title">Baccho Ka Handwriting Improvement for Bright Future</h2>
+
+            <p class="parent-greeting">✨ Nnumero Magic welcomes you all to our<br>“Baccho Ka Handwriting Improvement for Bright Future” Program ✨</p>
 
             <div class="main-content">
-                <b>What You Give Your Child Today, Shapes Their Tomorrow</b><br><br>
-                Aapka child jo feel karta hai, wahi uski personality aur future ko shape karta hai.<br><br>
-                Good news 👉 Simple parenting changes se hum child ki confidence, emotions aur bonding improve kar sakte hain.
+                Admissions open for our new batch starting from <b>1st June</b> 😊<br><br>
+                <b>📌 Eligibility:</b> Age 5 to 15 Years<br>
+                <b>🕛 Time Slots:</b> 12.00 PM or 3.00 PM<br>
+                <b>📚 Duration:</b> 21 Days (11 Days Live Sessions + 10 Days Practice)
             </div>
+
+            <div class="course-grid" style="margin-top:16px;">
+                <div class="c-item webinar-highlight"><b>Mentor:</b> Neha Agrawal Ma'am — Graphologist, 15 years experience</div>
+                <div class="c-item webinar-highlight"><b>Focus:</b> Handwriting, Focus, Confidence, Personality Development</div>
+                <div class="c-item webinar-highlight"><b>Outcomes:</b> Positive learning habits & happier confident child</div>
+                <div class="c-item webinar-highlight"><b>Special Offer:</b> ₹3000 Only</div>
+            </div>
+
+            <p style="margin-bottom: 12px; margin-top:14px; font-weight: 600;">This is not an ordinary handwriting improvement course. Your mentor will guide live sessions and supervised practice to build lasting skills.</p>
 
             <div class="info-grid">
                 <div class="schedule">
-                    <span><i class="fas fa-calendar-day"></i> 13 May 2026</span>
-                    <span><i class="fas fa-map-marker-alt"></i> WEDNESDAY</span>
-                    <span><i class="fas fa-clock"></i> 6:30 PM</span>
-                    <span><i class="fas fa-video"></i> Zoom</span>
+                    <span><i class="fas fa-calendar-day"></i> Starting 1st June 2026</span>
+                    <span><i class="fas fa-clock"></i> Time: 12:00 PM / 3:00 PM</span>
+                    <span><i class="fas fa-user-graduate"></i> Age: 5–15 yrs</span>
                 </div>
                 <div class="zoom-credentials">
-                    <b>Meeting ID:</b> 8950627868 &nbsp; | &nbsp; <b>Password:</b> momlove
+                    <b>Payment / Enrol:</b> UPI / WhatsApp — 9822568660
                 </div>
             </div>
 
-            <p style="margin-bottom: 25px; font-weight: 600;">👉 Join karein aur apne child ke future ko strong aur happy banayein.</p>
-
-            <div class="price-tag">
-                <span class="new-price">FREE</span>
-            </div>
+            <p style="margin-bottom: 18px; font-weight: 600;">To join, pay through UPI to 9822568660 and share child's name & age, or message us to enrol.</p>
 
             <div class="btn-group">
-                <a href="https://zoom.us/j/8950627868" class="btn-reserve" style="background: #007bff; border-color: #007bff; color: white;">🔵 RESERVE YOUR SEAT</a>
-                <a href="https://wa.me/919822568660?text=Hi,%20I'm%20interested%20in%20joining%20the%20Mother's%20Day%20Parenting%20Webinar" class="btn-whatsapp" style="background: #25d366; color: white;">
-                    <i class="fab fa-whatsapp"></i> 🟢 Join on WhatsApp
-                </a>
+                <a href="https://wa.me/919822568660?text=Hi%2C%20I%20want%20to%20enrol%20my%20child%20in%20the%20Handwriting%20Program.%20Name%3A%20%20Age%3A%20%20" class="btn-reserve" style="background: #007bff; border-color: #007bff; color: white;">🔵 RESERVE YOUR SEAT</a>
+                <a href="https://wa.me/919822568660?text=I%20have%20paid%20via%20UPI%20to%209822568660.%20Please%20confirm%20enrolment." class="btn-whatsapp" style="background: #25d366; color: white;"> <i class="fab fa-whatsapp"></i> 🟢 Message / Pay on WhatsApp</a>
             </div>
 
-            <div class="footer-brand">Nnumero Magic</div>
+            <div class="footer-brand">Nnumero Magic — Writing Better, Future Better</div>
         </div>
     </div>
 </section>
@@ -1599,6 +1656,26 @@
     gap: 15px;
     margin-bottom: 25px;
 }
+
+    /* Webinar detail highlight uses same brand blue as About Us */
+    .webinar-highlight {
+        color: var(--brand-blue);
+        font-weight: 700;
+    }
+
+    /* Mirror About Us card styling for webinar detail items */
+    .webinar-spotlight .course-grid .c-item {
+        background: var(--glass-white);
+        padding: 14px 16px;
+        border-radius: 12px;
+        border: 1px solid var(--border-color);
+        color: #ddd;
+        box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+    }
+    .webinar-spotlight .course-grid .c-item b {
+        color: var(--gold);
+        font-weight: 800;
+    }
 
 .c-item {
     font-size: 14px;
@@ -1873,7 +1950,7 @@
                         </div>
 
                         <div class="course-footer">
-                            <div class="course-price">₹3000 Only</div>
+                            <div class="course-price"><span class="old-price">₹3,600</span><span class="new-price">₹3,000 Only</span></div>
                             <div class="course-buttons">
                                 <a href="https://wa.me/919822568660?text=Hi,%20I'm%20interested%20in%20joining%20the%20Handwriting%20Improvement%20Program" class="btn-reserve" target="_blank">Join Now</a>
                                 <a href="https://wa.me/919822568660?text=Hi,%20I%20would%20like%20to%20learn%20more%20about%20the%20Handwriting%20Improvement%20Program" class="btn-secondary" target="_blank">Learn More</a>
